@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data:Z
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  hhapi:
+    image: ghcr.io/wladbelsky/hhapi/hhapi:master
+    restart: on-failure
+    volumes:
+      - ./credentials.json:/app/credentials.json
+    environment:
+      DB_ENGINE: postgresql+asyncpg
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: postgres
+      SPREADSHEET_ID: __YOUR_SPREADSHEET_ID__
+    depends_on:
+        - db
+    ports:
+      - "8080:8080"

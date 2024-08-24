@@ -1,0 +1,6 @@
+flask[async]
+sqlalchemy~=2.0.31
+gunicorn
+gspread
+requests
+psycopg2
