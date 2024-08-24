@@ -1,8 +1,10 @@
-FROM python:3.12-slim
+FROM ubuntu/python:3.12-24.04_stable
 
 LABEL authors="wladbelsky"
 
 COPY requirements.txt /app/requirements.txt
+
+RUN apt-get update && apt-get install -y libpq-dev
 
 RUN pip install -r /app/requirements.txt
 
